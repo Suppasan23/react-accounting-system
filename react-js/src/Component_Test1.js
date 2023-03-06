@@ -1,7 +1,6 @@
 import './Component_Test1.css';
 import { v4 as uuidv4 } from 'uuid';
 
-
 function Component_Test1(){
     return (
         <div className='container'>
@@ -27,7 +26,7 @@ function Transaction (){
         {title:"เงินเดือน", amount:"120000"},
         {title:"ค่าที่พัก", amount:"30000"},
         {title:"ค่าอาหาร", amount:"1000"},
-        {title:"ค่าเดินทาง", amount:"200"},
+        {title:"ค่าเดินทาง", amount:"ออออออ"},
         {title:"ค่าไฟฟ้า-ประปา", amount:"500"}
     ]
     return(
