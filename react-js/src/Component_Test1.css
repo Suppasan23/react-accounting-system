@@ -33,6 +33,14 @@ body{
     margin-bottom: 40px;
 }
 
+.li-bold{
+    font-weight: bold;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 
 .item{
