@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Itim';
+    src: url('./fonts/Itim-Regular.ttf') format('truetype');
+}
+
+*{
+    box-sizing: border-box;
+    font-family: 'Itim', sans-serif;
+}
+
+body{
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container{
+    width: 500px;
+}
+
+
+.title{
+    color: #04209B;
+    text-align: center;
+    font-size: 24px;
+}
+
+
+.transaction{
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+
+
+.item{
+    background-color: rgb(255, 255, 255);
+    color: #333;
+    list-style-type: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+}
