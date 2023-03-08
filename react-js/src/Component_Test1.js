@@ -1,6 +1,7 @@
 import './Component_Test1.css';
 import { v4 as uuidv4 } from 'uuid';
-import { func } from 'prop-types';
+import { useState } from 'react';
+
 
 function Component_Test1(){
     return (
@@ -21,6 +22,8 @@ function Title(){
         <h1 className='title'>โปรแกรมบัญชี รายรับ - รายจ่าย</h1>
     );
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////
 function Transaction (){
@@ -48,18 +51,24 @@ function Item ({title, amount}){
     );
 }
 
+
+
 //////////////////////////////////////////////////////////////////////////////////////
 function Form1(){
+    
+    const [title,setTitle] = useState('')
+    const [amount,setAmount] = useState(0)
+    
     return (
         <div>
             <form onSubmit={saveItem}>
                 <div className="form-control">
                     <label className="label-a">ชื่อรายการ</label>
-                    <input className="input-a" type="text" placeholder="ระบุชื่อรายการของคุณ" onChange={inputTitle}></input>
+                    <input className="input-a" type="text" placeholder="ระบุชื่อรายการของคุณ" onChange={inputTitle} value={title}></input>
                 </div>
                 <div className="form-control">
                     <label className="label-a">จำนวนเงิน</label>
-                    <input className="input-a" type="number" placeholder="(+ รายรับ , - รายจ่าย)" onChange={inputNumber}></input>
+                    <input className="input-a" type="number" placeholder="(+ รายรับ , - รายจ่าย)" onChange={inputAmount} value={amount}></input>
                 </div>
                 <div style={{ textAlign: 'right' }}>
                     <button className="btn-a" type="submit">เพิ่มข้อมูล</button>
@@ -67,17 +76,24 @@ function Form1(){
             </form>
         </div>
     );
+
+    function saveItem(event){
+        event.preventDefault()
+        const itemData = {
+            title:title,
+            amount:Number(amount)
+        }
+        console.log(itemData);
+        setTitle('')
+        setAmount(0)
+    }
+
+    function inputTitle(event){
+       setTitle(event.target.value)
+    }
+
+    function inputAmount(event){
+        setAmount(event.target.value)
+    }
 }
 
-function saveItem(event){
-    event.preventDefault()
-    console.log("บันทึกข้อมูลเรียบร้อย")
-}
-
-function inputTitle(event){
-    console.log(event.target.value)
-}
-
-function inputNumber(event){
-    console.log(event.target.value)
-}
