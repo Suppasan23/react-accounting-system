@@ -53,3 +53,28 @@ body{
     justify-content: space-between;
     margin-top: 4px;
 }
+
+.label-a{
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.input-a{
+    border: 1px solid #dede;
+    border-radius: 2px;
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+
+.btn-a{
+    background-color: rgb(7, 160, 38);
+    color: beige;
+    font-size: 16px;
+    margin: 5px 0;
+    height: 35px;
+    width: 90px;
+    cursor: pointer;
+}
