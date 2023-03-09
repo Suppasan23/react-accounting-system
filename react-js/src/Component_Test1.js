@@ -4,57 +4,31 @@ import { useState } from 'react';
 
 
 function Component_Test1(){
+    const initData = [
+        {id:1,title:"เงินเดือน", amount:"120000"},
+        {id:2,title:"ค่าที่พัก", amount:"30000"},
+        {id:3,title:"ค่าอาหาร", amount:"1000"},
+    ]
+
     return (
         <div className='container'>
-            <Title/>
-            <Form1/>
-            <Transaction/>
+            <h1 className='title'>โปรแกรมบัญชี รายรับ - รายจ่าย</h1>
+            <Form1 onAddItem={onAddNewItem}/>
+            <Transaction items = {initData}/>
         </div>
     );
+
+    function onAddNewItem(newItem){
+        console.log("ข้อมูลที่ถูกส่งมาจากฟอร์ม Form1 =", newItem)
+
+    }
 }
 
 export default Component_Test1;
 
 
 //////////////////////////////////////////////////////////////////////////////////////
-function Title(){
-    return(
-        <h1 className='title'>โปรแกรมบัญชี รายรับ - รายจ่าย</h1>
-    );
-}
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-function Transaction (){
-    const data = [
-        {title:"เงินเดือน", amount:"120000"},
-        {title:"ค่าที่พัก", amount:"30000"},
-        {title:"ค่าอาหาร", amount:"1000"},
-        {title:"ค่าเดินทาง", amount:"ออออออ"},
-        {title:"ค่าไฟฟ้า-ประปา", amount:"500"}
-    ]
-    return(
-        <ul className='transaction'>
-            <li className='li-bold'>รายการ<span>จำนวน</span></li>
-            <Item title={data[0].title} amount={data[0].amount} key={uuidv4()}/>
-            <Item title={data[1].title} amount={data[1].amount} key={uuidv4()}/>
-            <Item title={data[3].title} amount={data[3].amount} key={uuidv4()}/>
-            <Item title={data[4].title} amount={data[4].amount} key={uuidv4()}/>
-        </ul>
-    );
-}
-
-function Item ({title, amount}){
-    return(
-        <li className='item'>{title}<span>{amount}</span></li>
-    );
-}
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-function Form1(){
+function Form1(onAddItem){
     
     const [title,setTitle] = useState('')
     const [amount,setAmount] = useState(0)
@@ -80,10 +54,11 @@ function Form1(){
     function saveItem(event){
         event.preventDefault()
         const itemData = {
-            title:title,
-            amount:Number(amount)
-        }
-        console.log(itemData);
+                            id:uuidv4(),
+                            title:title,
+                            amount:Number(amount)
+                        }
+        onAddItem.onAddItem(itemData)
         setTitle('')
         setAmount(0)
     }
@@ -97,3 +72,21 @@ function Form1(){
     }
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////
+function Transaction ({items}){
+    return(
+        <ul className='transaction'>
+            <li className='li-bold'>รายการ<span>จำนวน</span></li>
+            <Item title={items[0].title} amount={items[0].amount} key={items[0].id}/>
+            <Item title={items[1].title} amount={items[1].amount} key={items[1].id}/>
+            <Item title={items[2].title} amount={items[2].amount} key={items[2].id}/>
+        </ul>
+    );
+}
+
+function Item ({title, amount}){
+    return(
+        <li className='item'>{title}<span>{amount}</span></li>
+    );
+}
