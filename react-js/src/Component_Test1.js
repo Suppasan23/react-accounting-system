@@ -10,8 +10,8 @@ function Component_Test1()
     const initData = 
     [
         {id:1,title:"เงินเดือน", amount:"120000"},
-        {id:2,title:"ค่าที่พัก", amount:"30000"},
-        {id:3,title:"ค่าอาหาร", amount:"1000"},
+        {id:2,title:"ค่าที่พัก", amount:"-30000"},
+        {id:3,title:"ค่าอาหาร", amount:"-20000"},
     ]
 
     const [items,setItems] = useState(initData)
@@ -43,7 +43,7 @@ function Form1(onAddItem)
 {
     
     const [title,setTitle] = useState('')
-    const [amount,setAmount] = useState(0)
+    const [amount,setAmount] = useState('')
     
     return (
         <div>
@@ -73,7 +73,7 @@ function Form1(onAddItem)
                         }
         onAddItem.onAddItem(itemData)
         setTitle('')
-        setAmount(0)
+        setAmount('')
     }
 
     function inputTitle(event)
@@ -104,9 +104,13 @@ function Transaction ({items})
     );
 }
 
+//////////////////////////////////////////////////////////////////////////////////////
 function Item ({title, amount})
 {
+    const status = amount < 0 ? "expense" : "income"
+    const symbol = amount < 0 ? "-" : "+"
+
     return(
-        <li className='item'>{title}<span>{amount}</span></li>
+        <li className={status}>{title} <span>{symbol}{Math.abs(amount)}</span></li>
     );
 }
