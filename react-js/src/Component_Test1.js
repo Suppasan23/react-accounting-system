@@ -1,7 +1,6 @@
 import './Component_Test1.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
-import { element } from 'prop-types';
 
 
 function Component_Test1()
