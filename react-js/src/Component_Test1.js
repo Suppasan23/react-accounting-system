@@ -1,6 +1,6 @@
-import './Component_Test1.css';
+import './Component_Test1.css'; 
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 
 function Component_Test1()
@@ -31,7 +31,6 @@ function Component_Test1()
         </div>
     );
 
-
 }
 
 export default Component_Test1;
@@ -40,27 +39,19 @@ export default Component_Test1;
 //////////////////////////////////////////////////////////////////////////////////////
 function Form1(onAddItem)
 {
-    
     const [title,setTitle] = useState('')
     const [amount,setAmount] = useState('')
-    
-    return (
-        <div>
-            <form onSubmit={saveItem}>
-                <div className="form-control">
-                    <label className="label-a">ชื่อรายการ</label>
-                    <input className="input-a" type="text" placeholder="ระบุชื่อรายการของคุณ" onChange={inputTitle} value={title}></input>
-                </div>
-                <div className="form-control">
-                    <label className="label-a">จำนวนเงิน</label>
-                    <input className="input-a" type="number" placeholder="(+ รายรับ , - รายจ่าย)" onChange={inputAmount} value={amount}></input>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                    <button className="btn-a" type="submit">เพิ่มข้อมูล</button>
-                </div>
-            </form>
-        </div>
-    );
+    const [formValid,setFormValid] = useState(false)
+
+    function inputTitle(event)
+    {
+       setTitle(event.target.value)
+    }
+
+    function inputAmount(event)
+    {
+        setAmount(event.target.value)
+    }
 
     function saveItem(event)
     {
@@ -75,15 +66,30 @@ function Form1(onAddItem)
         setAmount('')
     }
 
-    function inputTitle(event)
+    useEffect(function()
     {
-       setTitle(event.target.value)
-    }
+        const checkData = (title.trim().length > 0) && (amount > 0) 
+        setFormValid(checkData)
+    },[title,amount])
+    
+    return (
+        <div>
+            <form onSubmit={saveItem}>
+                <div className="form-control">
+                    <label className="label-a">ชื่อรายการ</label>
+                    <input className="input-a" type="text" placeholder="ระบุชื่อรายการของคุณ" onChange={inputTitle} value={title}></input>
+                </div>
+                <div className="form-control">
+                    <label className="label-a">จำนวนเงิน</label>
+                    <input className="input-a" type="number" placeholder="(+ รายรับ , - รายจ่าย)" onChange={inputAmount} value={amount}></input>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                    <button className="btn-a" type="submit" disabled={!formValid}>เพิ่มข้อมูล</button>
+                </div>
+            </form>
+        </div>
+    );
 
-    function inputAmount(event)
-    {
-        setAmount(event.target.value)
-    }
 }
 
 
