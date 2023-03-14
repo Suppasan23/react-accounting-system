@@ -1,6 +1,9 @@
 import './Component_Test1.css'; 
 import { v4 as uuidv4 } from 'uuid';
-import { useState,useEffect } from 'react';
+import { useState,useEffect, useContext } from 'react';
+import DataContext from './data/DataContext';
+import { element, func } from 'prop-types';
+
 
 
 function Component_Test1()
@@ -8,27 +11,55 @@ function Component_Test1()
 
     const initData = 
     [
-        {id:1,title:"เงินเดือน", amount:"120000"},
-        {id:2,title:"ค่าที่พัก", amount:"-30000"},
-        {id:3,title:"ค่าอาหาร", amount:"-20000"},
+        {id:1,title:"เงินเดือน", amount:120000},
+        {id:2,title:"ค่าที่พัก", amount:-20000},
+        {id:3,title:"ค่าอาหาร", amount:-20000},
     ]
 
     const [items,setItems] = useState(initData)
 
+    const [reportIncome,setReportIncome] = useState(0)
+    const [reportExpense,setReportExpense] = useState(0)
+    
     function onAddNewItem(newItem)
     {
-        setItems(function(prevItem) 
+        setItems(function(prevItem)
         {
             return [newItem, ...prevItem];
         });
     }
 
+
+    useEffect (function()
+    {
+        const amounts = items.map(function(element){return element.amount;})
+        const income = amounts.filter(function(element){return element>0;}).reduce(function(total,element){return total+=element;})
+        const expense = (amounts.filter(function(element){return element<0;}).reduce(function(total,element){return total+=element;}))*-1
+
+        setReportIncome(income)
+        setReportExpense(expense)
+
+    },[items,reportIncome,reportExpense])
+
+
     return (
-        <div className='container'>
-            <h1 className='title'>โปรแกรมบัญชี รายรับ - รายจ่าย</h1>
-            <Form1 onAddItem={onAddNewItem}/>
-            <Transaction items = {items}/>
-        </div>
+
+        <DataContext.Provider value =
+            {
+                {
+                    income : reportIncome,
+                    expense: reportExpense
+                }
+            }>
+
+            <div className='container'>
+                <h1 className='title'>โปรแกรมบัญชี รายรับ - รายจ่าย</h1>
+                <Peport/>
+                <Form1 onAddItem={onAddNewItem}/>
+                <Transaction items = {items}/>
+            </div>
+
+        </DataContext.Provider>
     );
 
 }
@@ -68,7 +99,7 @@ function Form1(onAddItem)
 
     useEffect(function()
     {
-        const checkData = (title.trim().length > 0) && (amount > 0) 
+        const checkData = (title.trim().length > 0) && ((amount !== 0)&&(amount !== ""))
         setFormValid(checkData)
     },[title,amount])
     
@@ -94,28 +125,47 @@ function Form1(onAddItem)
 
 
 //////////////////////////////////////////////////////////////////////////////////////
-function Transaction ({items})
+function Transaction({items})
 {
     return(
-        <ul className='transaction'>
-            <li className='li-bold'>รายการ<span>จำนวน</span></li>
+        <div>
+            <ul className='transaction'>
+                <li className='li-bold'>รายการ<span>จำนวน</span></li>
 
-            {items.map(function(element)
-            {
-                return <Item {...element} key={element.id}/>
-            })}
+                {items.map(function(element)
+                {
+                    return <Item {...element} key={element.id}/>
+                })}
 
-        </ul>
+            </ul>
+        </div>
     );
 }
 
+
 //////////////////////////////////////////////////////////////////////////////////////
-function Item ({title, amount})
+function Item({title, amount})
 {
     const status = amount < 0 ? "expense" : "income"
     const symbol = amount < 0 ? "-" : "+"
 
     return(
-        <li className={status}>{title} <span>{symbol}{Math.abs(amount)}</span></li>
+        <li className={status}>{title} <span>{symbol}{Math.abs(amount)}</span>                
+        </li>
     );
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+function Peport() {
+    
+    const {income , expense} = useContext(DataContext)
+
+    return (
+      <div>
+            <p>รายรับ : {income}</p>
+            <p>รายจ่าย : {expense}</p>
+      </div>
+    );
+}
+  
