@@ -1,14 +1,17 @@
-@font-face {
+@font-face 
+{
     font-family: 'Itim';
     src: url('./fonts/Itim-Regular.ttf') format('truetype');
 }
 
-*{
+*
+{
     box-sizing: border-box;
     font-family: 'Itim', sans-serif;
 }
 
-body{
+body
+{
     align-items: center;
     background-color: rgb(231, 231, 231);
     display: flex;
@@ -16,24 +19,28 @@ body{
     min-height: 100vh;
 }
 
-.container{
+.container
+{
     width: 500px;
 }
 
 
-.title{
+.title
+{
     color: #04209B;
     text-align: center;
     font-size: 24px;
 }
 
 
-.transaction{
+.transaction
+{
     padding: 0;
     margin-bottom: 40px;
 }
 
-.li-bold{
+.li-bold
+{
     font-weight: bold;
     list-style-type: none;
     display: flex;
@@ -43,7 +50,8 @@ body{
 }
 
 
-.income{
+.income
+{
     background-color: rgb(252, 255, 251);
     border: 2px solid rgb(0, 207, 3);
     color: #333;
@@ -56,7 +64,8 @@ body{
 }
 
 
-.expense{
+.expense
+{
     background-color: rgb(255, 251, 251);
     border: 2px solid rgb(255, 79, 79);
     color: #333;
@@ -69,12 +78,14 @@ body{
 }
 
 
-.label-a{
+.label-a
+{
     display: inline-block;
     margin: 5px 0;
 }
 
-.input-a{
+.input-a
+{
     border: 1px solid #dede;
     border-radius: 2px;
     display: block;
@@ -84,7 +95,8 @@ body{
 }
 
 
-.btn-a{
+.btn-a
+{
     background-color: rgb(7, 160, 38);
     color: beige;
     font-size: 16px;
@@ -92,4 +104,42 @@ body{
     height: 35px;
     width: 90px;
     cursor: pointer;
+}
+
+
+.report-container
+{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(252, 255, 251);
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.report-container>div
+{
+    flex: 1;
+    text-align: center;
+}
+
+.report-container>div:first-of-type
+{
+    border-right: 1px solid #dedede;
+}
+
+.report
+{
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin: 5px 0;
+}
+
+.report.plus
+{
+    color: rgb(0, 179, 3);
+}
+
+.report.minus
+{
+    color: rgb(255, 79, 79);
 }

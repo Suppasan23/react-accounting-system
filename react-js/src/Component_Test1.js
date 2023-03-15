@@ -1,4 +1,4 @@
-import './Component_Test1.css'; 
+import './Component_Test1.css';  
 import { v4 as uuidv4 } from 'uuid';
 import { useState,useEffect, useContext } from 'react';
 import DataContext from './data/DataContext';
@@ -157,14 +157,23 @@ function Item({title, amount})
 
 
 //////////////////////////////////////////////////////////////////////////////////////
-function Peport() {
-    
+function Peport() 
+{
     const {income , expense} = useContext(DataContext)
-
     return (
       <div>
-            <p>รายรับ : {income}</p>
-            <p>รายจ่าย : {expense}</p>
+            <h4>ยอดคงเหลือ (บาท)</h4>
+            <h1>฿{income-expense}</h1>
+            <div className="report-container">
+                <div>
+                    <h4>รายได้ทั้งหมด</h4>
+                    <p className="report plus">{income}</p>
+                </div>
+                <div>
+                    <h4>รายจ่ายทั้งหมด</h4>
+                    <p className="report minus">{expense}</p>
+                </div>
+            </div>
       </div>
     );
 }
