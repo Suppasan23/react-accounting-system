@@ -1,6 +1,6 @@
 import './Component_Test1.css';  
 import { v4 as uuidv4 } from 'uuid';
-import { useState,useEffect, useContext } from 'react';
+import { useState, useEffect, useContext} from 'react';
 import DataContext from './data/DataContext';
 import { element, func } from 'prop-types';
 
@@ -8,7 +8,6 @@ import { element, func } from 'prop-types';
 
 function Component_Test1()
 {
-
     const initData = 
     [
         {id:1,title:"เงินเดือน", amount:120000},
@@ -29,7 +28,6 @@ function Component_Test1()
         });
     }
 
-
     useEffect (function()
     {
         const amounts = items.map(function(element){return element.amount;})
@@ -40,8 +38,7 @@ function Component_Test1()
         setReportExpense(expense)
 
     },[items,reportIncome,reportExpense])
-
-
+ 
     return (
 
         <DataContext.Provider value =
@@ -60,8 +57,9 @@ function Component_Test1()
             </div>
 
         </DataContext.Provider>
-    );
 
+
+    );
 }
 
 export default Component_Test1;
