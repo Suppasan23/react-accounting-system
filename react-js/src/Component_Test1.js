@@ -2,8 +2,7 @@ import './Component_Test1.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useContext} from 'react';
 import DataContext from './data/DataContext';
-import { element, func } from 'prop-types';
-
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 
 function Component_Test1()
@@ -51,14 +50,28 @@ function Component_Test1()
 
             <div className='container'>
                 <h1 className='title'>โปรแกรมบัญชี รายรับ - รายจ่าย</h1>
-                <Peport/>
-                <Form1 onAddItem={onAddNewItem}/>
-                <Transaction items = {items}/>
+                <Router>
+                    <div className='router-area'>
+
+                        <ul className='horizontal-menu'>
+                            <li>
+                                <Link to ="/">ข้อมูลบัญชี</Link>
+                            </li>
+                            <li>
+                                <Link to ="/insert">บันทึกข้อมูล</Link>
+                            </li>
+                        </ul>
+
+                        <Routes>
+                            <Route path="/" element={<Peport />} />
+                            <Route path="/insert" element={<><Form1 onAddItem={onAddNewItem} /><Transaction items={items} /></>} />
+                        </Routes>
+
+                    </div>
+                </Router>
             </div>
 
         </DataContext.Provider>
-
-
     );
 }
 
@@ -146,9 +159,13 @@ function Item({title, amount})
 {
     const status = amount < 0 ? "expense" : "income"
     const symbol = amount < 0 ? "-" : "+"
+    const formatNumber=function(num)
+    {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
 
     return(
-        <li className={status}>{title} <span>{symbol}{Math.abs(amount)}</span>                
+        <li className={status}>{title} <span>{symbol}{formatNumber(Math.abs(amount))}</span>                
         </li>
     );
 }
@@ -158,18 +175,25 @@ function Item({title, amount})
 function Peport() 
 {
     const {income , expense} = useContext(DataContext)
+
+    const formatNumber=function(num)
+    {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+
+
     return (
       <div>
-            <h4>ยอดคงเหลือ (บาท)</h4>
-            <h1>฿{income-expense}</h1>
+            <p className='label-a'>ยอดคงเหลือ (บาท)</p>
+            <h1>฿{formatNumber(income-expense)}</h1>
             <div className="report-container">
                 <div>
-                    <h4>รายได้ทั้งหมด</h4>
-                    <p className="report plus">{income}</p>
+                    <p>รายได้ทั้งหมด</p>
+                    <p className="report plus">฿{formatNumber(income)}</p>
                 </div>
                 <div>
-                    <h4>รายจ่ายทั้งหมด</h4>
-                    <p className="report minus">{expense}</p>
+                    <p>รายจ่ายทั้งหมด</p>
+                    <p className="report minus">฿{formatNumber(expense)}</p>
                 </div>
             </div>
       </div>

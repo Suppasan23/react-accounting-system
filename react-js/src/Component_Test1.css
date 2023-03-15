@@ -81,6 +81,7 @@ body
 .label-a
 {
     display: inline-block;
+    font-weight: bold;
     margin: 5px 0;
 }
 
@@ -142,4 +143,33 @@ body
 .report.minus
 {
     color: rgb(255, 79, 79);
+}
+
+.horizontal-menu
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #333;
+    text-align: center;
+}
+
+.horizontal-menu>li
+{
+    display: inline-block;
+}
+
+.horizontal-menu a
+{
+    color:white;
+    text-decoration: none;
+    padding: 16px;
+    display: block;
+}
+
+.router-area
+{
+    border:solid black;
+    padding: 5px;
 }
